@@ -1,6 +1,6 @@
 #nombre": str, "precio": float, "cantidad": int}
 from servicios import *
-
+from archivos import *
 
 
 inventario =[]
@@ -58,7 +58,11 @@ while opcion != "9":
         eliminar_producto(inventario, nombre)
     if opcion == "6":
         calcular_estadisticas(inventario)
-
-
-
+    if opcion == "7":
+        guardar_csv(inventario, 'bd.csv',True)
+        print(" Base de datos guardada.")
+    if opcion == "8":
+        inventario_cargado = cargar_csv('bd.csv')
+    if opcion == "9":
+        print("Saliendo del menu") 
 
