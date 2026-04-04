@@ -62,7 +62,30 @@ while opcion != "9":
         guardar_csv(inventario, 'bd.csv',True)
         print(" Base de datos guardada.")
     if opcion == "8":
+
         inventario_cargado = cargar_csv('bd.csv')
+        if inventario_cargado:
+            decision = input("¿Sobrescribir inventario actual? (S/N)").upper().strip()
+            if decision == "S":
+                inventario = inventario_cargado.copy()
+
+            elif decision == "N":
+                print("por politicas, los precios y cantidades seran actualizadas")
+                for producto_cargado in inventario_cargado:
+                    nombre_cargado = producto_cargado['nombre']
+                    precio_cargado = producto_cargado['precio']
+                    cantidad_cargado = producto_cargado['cantidad']
+                    
+                    producto_encontrado = buscar_producto(inventario,nombre_cargado)
+                    if producto_encontrado:
+                        producto_encontrado['precio'] = producto_cargado['precio']
+                        producto_encontrado['cantidad'] += producto_cargado['cantidad']
+                    else:
+                        inventario.append(producto_cargado)
+                         
+
+
+
     if opcion == "9":
         print("Saliendo del menu") 
 
